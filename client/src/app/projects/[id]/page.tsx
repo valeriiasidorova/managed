@@ -2,18 +2,21 @@
 
 import React, { useState } from "react";
 import ProjectHeader from "../ProjectHeader";
+import Board from "../BoardView";
 
-// type Props = {
-// };
+type Props = {
+  params: { id: string };
+};
 
-const Project = () => {
+const Project = ({ params }: Props) => {
+  const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
 
   return (
     <div>
       {/* Modal NEW TASK */}
       <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-      {/* TODO: {activeTab === "Board" && ( <Board />)} */}
+      {activeTab === "Board" && <Board id={id} />}
     </div>
   );
 };
