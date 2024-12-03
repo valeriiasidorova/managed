@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ProjectHeader from "../ProjectHeader";
 import Board from "../BoardView";
 import List from "../ListView";
+import Timeline from "../TimelineView";
 
 type Props = {
   params: { id: string };
@@ -19,6 +20,7 @@ const Project = ({ params }: Props) => {
       <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       {activeTab === "Board" && <Board id={id} />}
       {activeTab === "List" && <List id={id} />}
+      {activeTab === "Timeline" && <Timeline id={id} />}
     </div>
   );
 };
