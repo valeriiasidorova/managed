@@ -78,8 +78,18 @@ const TableView = ({ id }: TableViewProps) => {
   return (
     <div className="h-[540px] w-full px-4 pb-8 xl:px-6">
       <div className="pt-5">
-        <Header name="Table" isSmallText />
-        {/* TODO: button */}
+        <Header
+          name="Table"
+          buttonComponent={
+            <button
+              className="flex items-center rounded bg-blue-primary px-3 py-2 text-white hover:bg-blue-600"
+              //TODO: onClick={()=>{}}
+            >
+              Add Task
+            </button>
+          }
+          isSmallText
+        />
       </div>
       <DataGrid
         rows={tasks || []}
