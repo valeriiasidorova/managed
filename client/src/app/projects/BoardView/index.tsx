@@ -10,11 +10,12 @@ import { format } from "date-fns";
 
 type BoardProps = {
   id: string;
+  setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
 
 const taskStatus = ["To Do", "Work In Progress", "Under Review", "Completed"];
 
-const BoardView = ({ id }: BoardProps) => {
+const BoardView = ({ id, setIsModalNewTaskOpen }: BoardProps) => {
   const {
     data: tasks,
     isLoading,
@@ -39,6 +40,7 @@ const BoardView = ({ id }: BoardProps) => {
             status={status}
             tasks={tasks || []}
             moveTask={moveTask}
+            setIsModalNewTaskOpen={setIsModalNewTaskOpen}
           />
         ))}
       </div>
@@ -51,9 +53,15 @@ type TaskColumnProps = {
   status: string;
   tasks: TaskType[];
   moveTask: (taskId: number, toStatus: string) => void;
+  setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
 
-const TaskColumn = ({ status, tasks, moveTask }: TaskColumnProps) => {
+const TaskColumn = ({
+  status,
+  tasks,
+  moveTask,
+  setIsModalNewTaskOpen,
+}: TaskColumnProps) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "task",
     drop: (item: { id: number }) => moveTask(item.id, status),
@@ -99,7 +107,10 @@ const TaskColumn = ({ status, tasks, moveTask }: TaskColumnProps) => {
             <button className="flex h-6 w-5 items-center justify-center dark:text-neutral-500">
               <EllipsisVertical size={26} />
             </button>
-            <button className="flex h-6 w-6 items-center justify-center rounded bg-gray-200 dark:bg-dark-tertiary dark:text-white">
+            <button
+              className="flex h-6 w-6 items-center justify-center rounded bg-gray-200 dark:bg-dark-tertiary dark:text-white"
+              onClick={() => setIsModalNewTaskOpen(true)}
+            >
               <Plus size={16} />
             </button>
           </div>

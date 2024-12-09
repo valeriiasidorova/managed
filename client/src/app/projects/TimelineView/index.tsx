@@ -6,11 +6,12 @@ import "gantt-task-react/dist/index.css";
 
 type TimelineViewProps = {
   id: string;
+  setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
 
 type TaskTypeItems = "task" | "milestone" | "project";
 
-const TimelineView = ({ id }: TimelineViewProps) => {
+const TimelineView = ({ id, setIsModalNewTaskOpen }: TimelineViewProps) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
   const {
     data: tasks,
@@ -80,7 +81,10 @@ const TimelineView = ({ id }: TimelineViewProps) => {
           />
         </div>
         <div className="px-4 pb-5 pt-1">
-          <button className="flex items-center rounded bg-blue-primary px-3 py-2 text-white hover:bg-blue-600">
+          <button
+            className="flex items-center rounded bg-blue-primary px-3 py-2 text-white hover:bg-blue-600"
+            onClick={() => setIsModalNewTaskOpen(true)}
+          >
             Add New Task
           </button>
         </div>

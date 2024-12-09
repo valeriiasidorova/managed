@@ -5,9 +5,10 @@ import React from "react";
 
 type ListProps = {
   id: string;
+  setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
 
-const ListView = ({ id }: ListProps) => {
+const ListView = ({ id, setIsModalNewTaskOpen }: ListProps) => {
   const {
     data: tasks,
     error,
@@ -25,7 +26,7 @@ const ListView = ({ id }: ListProps) => {
           buttonComponent={
             <button
               className="flex items-center rounded bg-blue-primary px-3 py-2 text-white hover:bg-blue-600"
-              //TODO: onClick={()=>{}}
+              onClick={() => setIsModalNewTaskOpen(true)}
             >
               Add Task
             </button>
