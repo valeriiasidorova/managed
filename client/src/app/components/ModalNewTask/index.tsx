@@ -46,8 +46,8 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: ModalNewTaskProps) => {
       status,
       priority,
       tags,
-      startDate: startDate || formattedStartDate,
-      dueDate: dueDate || formattedDueDate,
+      startDate: formattedStartDate,
+      dueDate: formattedDueDate,
       authorUserId: parseInt(authorUserId),
       assignedUserId: parseInt(assignedUserId),
       projectId: id !== null ? Number(id) : Number(projectId),
@@ -60,7 +60,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: ModalNewTaskProps) => {
       authorUserId &&
       startDate &&
       dueDate &&
-      !(id !== null || projectId)
+      (id !== null || projectId)
     );
   };
 
