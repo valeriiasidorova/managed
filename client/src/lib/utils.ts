@@ -10,6 +10,9 @@ export const dataGridSxStyles = (isDarkMode: boolean) => {
         borderColor: `${isDarkMode ? "#2d3135" : ""}`,
       },
     },
+    "& .MuiDataGrid-columnHeaderTitle": {
+      fontWeight: 600,
+    },
     "& .MuiIconbutton-root": {
       color: `${isDarkMode ? "#a3a3a3" : ""}`,
     },

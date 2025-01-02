@@ -6,10 +6,10 @@ import { formatISO } from "date-fns";
 type ModalNewTaskProps = {
   isOpen: boolean;
   onClose: () => void;
-  id: string;
+  id?: string | null;
 };
 
-const ModalNewTask = ({ isOpen, onClose, id }: ModalNewTaskProps) => {
+const ModalNewTask = ({ isOpen, onClose, id = null }: ModalNewTaskProps) => {
   const [createTask, { isLoading }] = useCreateTaskMutation();
 
   const [title, setTitle] = useState("");
@@ -24,7 +24,14 @@ const ModalNewTask = ({ isOpen, onClose, id }: ModalNewTaskProps) => {
   const [projectId, setProjectId] = useState("");
 
   const handleSubmit = async () => {
-    if (!title || !authorUserId || !startDate || !dueDate) return;
+    if (
+      !title ||
+      !authorUserId ||
+      !startDate ||
+      !dueDate ||
+      !(id !== null || projectId)
+    )
+      return;
 
     const formattedStartDate = formatISO(new Date(startDate), {
       representation: "complete",
@@ -39,16 +46,22 @@ const ModalNewTask = ({ isOpen, onClose, id }: ModalNewTaskProps) => {
       status,
       priority,
       tags,
-      startDate: startDate || formattedStartDate,
-      dueDate: dueDate || formattedDueDate,
+      startDate: formattedStartDate,
+      dueDate: formattedDueDate,
       authorUserId: parseInt(authorUserId),
       assignedUserId: parseInt(assignedUserId),
-      projectId: Number(id),
+      projectId: id !== null ? Number(id) : Number(projectId),
     });
   };
 
   const isFormValid = () => {
-    return title && authorUserId && startDate && dueDate;
+    return (
+      title &&
+      authorUserId &&
+      startDate &&
+      dueDate &&
+      (id !== null || projectId)
+    );
   };
 
   const selectStyles =
